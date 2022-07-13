@@ -1,4 +1,4 @@
-//- App generals
+//- App generals //
 //jshint esversion:6
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,11 +6,13 @@ const https = require('https');
 
 const app = express();
 
-app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(express.static('Public'));
 //--
+
+app.set('view engine', 'ejs');
 
 const items = [];
 
@@ -30,12 +32,15 @@ app.get('/', function(req, res) {
     newListItems: items
   });
 
+  if (items.length > 0) {
+    console.table(items);
+  }
+
 });
 
 app.post('/', function(req, res) {
 
   let newItem = req.body.newItem;
-  console.log(newItem);
 
   items.push(newItem);
 

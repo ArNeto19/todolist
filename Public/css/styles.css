@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+  margin: auto;
+  padding: 7% 4%;
+}
+
+.list {
+  display: inline-table;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
