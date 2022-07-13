@@ -1,6 +1,5 @@
-//jshint esversion:6
-
 //- App generals
+//jshint esversion:6
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
@@ -13,18 +12,38 @@ app.use(bodyParser.urlencoded({
 }));
 //--
 
+const items = [];
+
 app.get('/', function(req, res) {
 
-  let week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  let day = new Date();
-  let currentDay = day.getDay();
-  let today = week[currentDay];
+  let options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  };
+  let today = new Date();
+  let day = today.toLocaleDateString('en-US', options);
 
   res.render('list', {
-    weekDay: today
+    actualDate: day,
+    newListItems: items
   });
 
 });
+
+app.post('/', function(req, res) {
+
+  let newItem = req.body.newItem;
+  console.log(newItem);
+
+  items.push(newItem);
+
+  res.redirect('/');
+});
+
+
+
 
 
 app.listen(3000, function() {

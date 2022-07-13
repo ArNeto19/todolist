@@ -3,12 +3,24 @@
 
 <head>
   <meta charset="utf-8">
-  <title>To Do List</title>
+  <title>ToDo List</title>
 </head>
 
 <body>
   <h1>Hi!</h1>
-  <p> Today is <%=weekDay%>. </p>
+  <h2> <%= actualDate %>. </h2>
+
+  <form class="" action="/" method="post">
+    <ul>
+      <% for (var i = 0; i<newListItems.length; i++) { %>
+      <li> <%= newListItems[i] %> </li>
+      <%  } %>
+    </ul>
+    <input type="text" name="newItem" placeholder="new item">
+    <button type="submit" name="button">Add</button>
+
+  </form>
+
 
 </body>
 
