@@ -3,28 +3,42 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <title>ToDo List</title>
 </head>
 
 <body>
   <div class="title">
-    <h1>Hi!</h1>
-    <h2> <%= actualDate %>. </h2>
+    <h1><%= actualDate %></h1>
   </div>
 
   <div class="list">
     <form action="/" method="post">
-      <ul>
-        <% for (let i = 0; i<newListItems.length; i++) { %>
-        <li> <%= newListItems[i] %> </li>
-        <%  } %>
-      </ul>
-      <input type="text" name="newItem" placeholder="New item">
-      <button type="submit" name="button">Add</button>
+      <% newListItems.forEach(function(items) { %>
+
+      <div class="item">
+        <input type="checkbox">
+        <p> <%= items %> </p>
+      </div>
+
+      <%  }) %>
+
+      <div class="item">
+        <input type="text" name="newItem" placeholder="New item" autocomplete="off">
+        <button type="submit" name="button">+</button>
+      </div>
+
     </form>
   </div>
 
+  <div class="footer">
+    <footer>
+      <p>Made by: ArNeto19</p>
+    </footer>
+  </div>
 
 </body>
 
