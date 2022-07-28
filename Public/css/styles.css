@@ -84,16 +84,6 @@ input[type="text"]:focus {
   font-size: 1.1rem;
 }
 
-.removeBtn {
-  min-height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  border-color: transparent;
-  background-color: #8380C4;
-  color: #fff;
-  font-size: 10px;
-}
-
 button:active {
   background-color: #373391;
 }
