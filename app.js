@@ -18,10 +18,7 @@ mongoose.connect('mongodb+srv://admin-arneto19:test123@cluster0.wx5ya.mongodb.ne
 });
 
 const itemsSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  }
+  name: String    
 });
 const ListItem = mongoose.model('listItem', itemsSchema);
 
