@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -11,10 +12,19 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static('Public'));
 //--
-
 app.set('view engine', 'ejs');
+mongoose.connect('mongodb+srv://admin-arneto19:test123@cluster0.wx5ya.mongodb.net/todolistDB', {
+  useNewUrlParser: true
+});
 
-const items = [];
+const itemsSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  }
+});
+const ListItem = mongoose.model('listItem', itemsSchema);
+
 
 app.get('/', function(req, res) {
 
@@ -27,30 +37,51 @@ app.get('/', function(req, res) {
   let today = new Date();
   let day = today.toLocaleDateString('en-US', options);
 
-  res.render('list', {
-    actualDate: day,
-    newListItems: items
+
+  ListItem.find({}, function(err, foundItems) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('list', {
+        actualDate: day,
+        newListItems: foundItems
+
+      });
+    }
+
   });
 
-  if (items.length > 0) {
-    console.table(items);
-  }
+
 
 });
 
 app.post('/', function(req, res) {
 
   let newItem = req.body.newItem;
-
-  items.push(newItem);
+  let item = new ListItem({
+    name: newItem
+  });
+  item.save();
 
   res.redirect('/');
 });
 
+app.post('/delete', function(req, res) {
+
+  let checkedItem = req.body.checkbox;
+
+  setTimeout(function() {
+    ListItem.deleteOne({checkedItem}, function(err){
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.redirect('/');
+  }, 2000);
+
+});
 
 
-
-
-app.listen(3000, function() {
-  console.log('Server running on port 3000');
+app.listen(process.env.PORT || 3000, function() {
+  console.log('Server running smoothly');
 });
